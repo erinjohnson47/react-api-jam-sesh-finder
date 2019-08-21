@@ -3,6 +3,8 @@ import './App.css';
 import Registration from './Registration'
 import Profile from './Profile';
 import { Route, Switch } from 'react-router-dom';
+import Login from './Login'
+
 
 const My404 = () =>{
   return (
@@ -22,6 +24,28 @@ class App extends Component {
     location: '',
     image: '',
     loading: true
+  }
+  login = async (loginInfo) => {
+    try {
+      const loginResponse = await fetch('http://localhost:8000/user/login', {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(loginInfo),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const parsedResponse = await loginResponse.json();
+      console.log(parsedResponse, '<-parsedResponse in login');
+      this.setState({
+          ...parsedResponse.data,
+          loading: false
+      })
+      return parsedResponse
+    } catch (err) {
+      console.log(err)
+      return err
+    }
   }
   register = async (data) =>  {
     try {
@@ -51,6 +75,7 @@ class App extends Component {
       <main>
         <Switch>
           <Route exact path='/user/register' render = {(props) => <Registration {...props} register={this.register} /> } /> 
+          <Route exact path='/user/login' render = {(props) => <Login {...props} login={this.login}/>} />
           <Route exact path='/user/profile' render = {(props) => <Profile {...props} userInfo={this.state} /> } />
           <Route component={My404} />
         </Switch>

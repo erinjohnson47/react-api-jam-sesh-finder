@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 
 class Registration extends Component {
@@ -64,7 +65,7 @@ class Registration extends Component {
         <Form.Input fluid icon='image' iconPosition='left' type="file" name='image' onChange={this.handleChange}/>
         <Button fluid size='large' type='sumbit'>Register</Button>
         <Message>
-            Already a member?
+            Already a member? <Link to='/login'></Link>
         </Message>
         </Segment>
     </Form>
