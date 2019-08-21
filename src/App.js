@@ -1,26 +1,64 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Registration from './Registration'
+import { Route, Switch } from 'react-router-dom';
 
-function App() {
+const My404 = () =>{
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      Uh oh, nothing here, <a href='/'>take me back home!</a>
     </div>
-  );
+    )
+}
+
+
+
+class App extends Component {
+  state = {
+    username: '',
+    email: '',
+    password: '',
+    location: '',
+    image: ''
+  }
+  register = async (data) =>  {
+    try {
+      const registerResponse = await fetch('http://localhost:8000/user/register', {
+        method: 'POST',
+        credentials: 'include',
+        body: data,
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+      const parsedResponse = await registerResponse.json();
+      console.log(parsedResponse);
+      this.setState(()  =>  {
+        return{
+          ...parsedResponse.data
+        }
+      })
+      return parsedResponse;
+    }
+    catch(err)  {
+      console.log(err);
+      return err;
+    }
+  }
+  render(){
+    return (
+      <main>
+        <Switch>
+          <Route exact path='/user/register' render = {(props) => <Registration {...props} register= {this.register} /> } /> 
+          <Route component={My404} />
+        </Switch>
+      </main>
+    );
+  }
 }
 
 export default App;
+
+
+
+
