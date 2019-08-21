@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Registration from './Registration'
 import Profile from './Profile';
+import EventContainer from './EventContainer';
 import { Route, Switch } from 'react-router-dom';
 import Login from './Login'
 
@@ -77,6 +78,7 @@ class App extends Component {
           <Route exact path='/user/register' render = {(props) => <Registration {...props} register={this.register} /> } /> 
           <Route exact path='/user/login' render = {(props) => <Login {...props} login={this.login}/>} />
           <Route exact path='/user/profile' render = {(props) => <Profile {...props} userInfo={this.state} /> } />
+          <Route exact path='/event' render = {(props) => <EventContainer {...props} /> } />
           <Route component={My404} />
         </Switch>
       </main>
