@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Registration from './Registration'
+import Profile from './Profile';
 import { Route, Switch } from 'react-router-dom';
 
 const My404 = () =>{
@@ -19,7 +20,8 @@ class App extends Component {
     email: '',
     password: '',
     location: '',
-    image: ''
+    image: '',
+    loading: true
   }
   register = async (data) =>  {
     try {
@@ -32,11 +34,10 @@ class App extends Component {
         }
       })
       const parsedResponse = await registerResponse.json();
-      console.log(parsedResponse);
-      this.setState(()  =>  {
-        return{
-          ...parsedResponse.data
-        }
+      console.log(parsedResponse, '<-parsedResponse in register');
+      this.setState({
+          ...parsedResponse.data,
+          loading: false
       })
       return parsedResponse;
     }
@@ -49,7 +50,8 @@ class App extends Component {
     return (
       <main>
         <Switch>
-          <Route exact path='/user/register' render = {(props) => <Registration {...props} register= {this.register} /> } /> 
+          <Route exact path='/user/register' render = {(props) => <Registration {...props} register={this.register} /> } /> 
+          <Route exact path='/user/profile' render = {(props) => <Profile {...props} userInfo={this.state} /> } />
           <Route component={My404} />
         </Switch>
       </main>

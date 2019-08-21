@@ -36,11 +36,11 @@ class Registration extends Component {
 
         registerCall.then((data) => {
         console.log(data)
-        // if(data.status.message === "Success"){
-        //   this.props.history.push('/profile')
-        // } else {
-        //   console.log(data, ' this should have an error message? How could you display that on the screen')
-        // }
+        if(data.status.message === "Success"){
+            this.props.history.push('/user/profile')
+        } else {
+            console.log(data, ' this should have an error message? How could you display that on the screen')
+        }
     })
     }
     render(){
