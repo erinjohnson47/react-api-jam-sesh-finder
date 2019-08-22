@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import CreateEvent from '../CreateEvent';
+import Events from '../EventList';
 
 class EventContainer extends Component {
     state = {
-        events: [],
-        loading: true
+        events: []
+    }
+    componentDidMount() {
+        this.getAllEvents();
     }
     addEvent = async (newEvent)  =>  {
         console.log(newEvent, 'in add event');
@@ -25,12 +28,29 @@ class EventContainer extends Component {
             const createEventResponse = await createEvent.json();
             console.log(createEventResponse, '<createEventResponse in addEvent route');
             this.setState({
-                events: [...this.state.events, createEventResponse.data],
-                loading: false
+                events: [...this.state.events, createEventResponse.data]
 
             })
             return createEventResponse
         } catch(err) {
+            console.log(err);
+            return err;
+        }
+    }
+    getAllEvents = async () =>  {
+        try {
+            const getEvents = await fetch('http://localhost:8000/event/', {
+                credentials: 'include',
+                method: 'GET'
+            })
+            console.log(getEvents, 'this should be all the events');
+            const eventsResponse = await getEvents.json();
+            console.log(eventsResponse);
+            this.setState({
+                events: [...eventsResponse.data]
+            });
+        }
+        catch(err)  {
             console.log(err);
             return err;
         }
@@ -40,6 +60,7 @@ class EventContainer extends Component {
         return(
         <div>
             <CreateEvent addEvent={this.addEvent}/>
+            <Events events={this.state.events}/>
         </div>
         )
     }
