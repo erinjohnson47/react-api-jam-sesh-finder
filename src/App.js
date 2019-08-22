@@ -72,6 +72,12 @@ class App extends Component {
   render(){
     return (
       <main>
+        <ul>
+          <li><a href='/user/register'>Reg</a></li>
+          <li><a href='/user/login'>Log</a></li>
+          <li><a href='/user/profile'>Prof</a></li>
+          <li><a href='/event'>Event</a></li>
+        </ul>
         <Switch>
           <Route exact path='/user/register' render = {(props) => <Registration {...props} register={this.register} /> } /> 
           <Route exact path='/user/login' render = {(props) => <Login {...props} login={this.login}/>} />
