@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { Button, Form, Grid, Header, Image, Message, Segment} from 'semantic-ui-react';
+import { withRouter } from "react-router";
+
+
+
 
 class CreateEvent extends Component {
     state = {
@@ -8,9 +12,7 @@ class CreateEvent extends Component {
         date: '',
         start_time: '',
         end_time: '',
-        location: '',
-        created_by:  '',
-        loading: true
+        location: ''
     }
     handleChange = (e, {name, value}) => {
         if (this.state.hasOwnProperty(name)) {
@@ -18,10 +20,23 @@ class CreateEvent extends Component {
         } else {
         this.setState({[e.currentTarget.name]: e.currentTarget.value})
         }
+        console.log(this.state)
     }
-    handleSubmit = async (e) =>  {
+    handleSubmit = async (e) => {
         e.preventDefault();
-        //do something on handleSubmit
+        const addEvent = this.props.addEvent(this.state);
+        console.log(addEvent, '<-addEvent in handleSubmit')
+        addEvent.then((data) => {
+            console.log(data, '<-data from add event')
+            if(data.status.message === 'Success') {
+                this.props.history.push('/event')
+            } else {
+                console.log(data, '<-data', this.props, '<-this.props')
+            }
+        }).catch((err) => {
+            console.log(err)
+            return err
+        })
     }
     render() {
         return(
@@ -85,5 +100,4 @@ class CreateEvent extends Component {
         )
     }
 }
-
-export default CreateEvent;
+export default withRouter(CreateEvent);

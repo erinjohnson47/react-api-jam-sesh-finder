@@ -10,7 +10,7 @@ import Login from './Login'
 const My404 = () =>{
   return (
     <div>
-      Uh oh, nothing here, <a href='/'>take me back home!</a>
+      Uh oh, nothing here, <a href='/user/profile'>take me back home!</a>
     </div>
     )
 }

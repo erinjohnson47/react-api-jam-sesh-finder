@@ -6,11 +6,10 @@ class EventContainer extends Component {
         events: [],
         loading: true
     }
-    addEvent = async (newEvent, e)  =>  {
-        // e.preventDefault();
-        console.log(newEvent, e, 'in add event');
+    addEvent = async (newEvent)  =>  {
+        console.log(newEvent, 'in add event');
         try {
-            const createEvent = await fetch('http://localhost:8000/event', {
+            const createEvent = await fetch('http://localhost:8000/event/', {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(newEvent),
@@ -24,12 +23,13 @@ class EventContainer extends Component {
             }
 
             const createEventResponse = await createEvent.json();
-            console.log(createEventResponse.data);
+            console.log(createEventResponse, '<createEventResponse in addEvent route');
             this.setState({
                 events: [...this.state.events, createEventResponse.data],
                 loading: false
 
             })
+            return createEventResponse
         } catch(err) {
             console.log(err);
             return err;
