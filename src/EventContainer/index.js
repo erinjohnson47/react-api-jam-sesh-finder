@@ -56,12 +56,29 @@ class EventContainer extends Component {
             return err;
         }
     }
+    deleteEvent = async (id) => {
+        try {
+            const deleteEvent = await fetch('http://localhost:8000/event/'+id, {
+                credentials: 'include',
+                method: 'DELETE'
+            })
+            if(deleteEvent.status !== 200){
+                throw Error('error on delete')
+            }
+            this.setState({
+                events: this.state.events.filter((event) => event.id !== id)
+            })
+        } catch (err) {
+            console.log(err)
+            return err
+        }
+    }
     render() {
         console.log(this.state, 'state in render of event container');
         return(
         <div>
             <CreateEvent addEvent={this.addEvent}/>
-            <Events events={this.state.events}/>
+            <Events events={this.state.events} removeEvent={this.deleteEvent}/>
         </div>
         )
     }

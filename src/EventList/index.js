@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Icon, Item, Label } from 'semantic-ui-react'
 
-const Events = (props) =>  {
-    console.log(props)
-    const eventList = props.events.map((event)  =>  {
+const Events = ({ events, removeEvent }) =>  {
+    console.log(events)
+    const eventList = events.map((event)  =>  {
         return(
             <Item key={event.id}>
                 <Item.Content>
@@ -11,8 +11,19 @@ const Events = (props) =>  {
                     <Item.Meta>{event.date}: {event.start_time} - {event.end_time}</Item.Meta>
                 </Item.Content>
                 <Item.Extra>
-                    <Button primary floated='right'>
+                    <Button 
+                        primary 
+                        floated='left'
+                    >
                     Join Event
+                        <Icon name='right chevron' />
+                    </Button>
+                    <Button 
+                        color='red'
+                        floated='left'
+                        onClick={() => removeEvent(event.id)}
+                        >
+                    Delete Event                    
                     <Icon name='right chevron' />
                     </Button>
                 </Item.Extra>

@@ -3,7 +3,7 @@ import './App.css';
 import Registration from './Registration'
 import Profile from './Profile';
 import EventContainer from './EventContainer';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import Login from './Login'
 
 
@@ -22,7 +22,20 @@ class App extends Component {
     password: '',
     location: '',
     image: '',
-    loading: true
+  }
+
+  componentDidMount(){
+    const user = localStorage.getItem("jam_user")
+    console.log(JSON.parse(user))
+    const parsedUser = JSON.parse(user)
+    if (user){
+      this.setState({
+        username: parsedUser.username,
+        email: parsedUser.email,
+        location: parsedUser.location,
+        image: parsedUser.image
+      })
+    }
   }
   login = async (loginInfo) => {
     try {
@@ -36,9 +49,9 @@ class App extends Component {
       })
       const parsedResponse = await loginResponse.json();
       console.log(parsedResponse, '<-parsedResponse in login');
+      localStorage.setItem("jam_user", JSON.stringify(parsedResponse.data))
       this.setState({
-          ...parsedResponse.data,
-          loading: false
+          ...parsedResponse.data
       })
       return parsedResponse
     } catch (err) {
@@ -59,8 +72,7 @@ class App extends Component {
       const parsedResponse = await registerResponse.json();
       console.log(parsedResponse, '<-parsedResponse in register');
       this.setState({
-          ...parsedResponse.data,
-          loading: false
+          ...parsedResponse.data
       })
       return parsedResponse;
     }
@@ -73,10 +85,10 @@ class App extends Component {
     return (
       <main>
         <ul>
-          <li><a href='/user/register'>Reg</a></li>
-          <li><a href='/user/login'>Log</a></li>
-          <li><a href='/user/profile'>Prof</a></li>
-          <li><a href='/event'>Event</a></li>
+          <li><Link to='/user/register'>Reg</Link></li>
+          <li><Link to='/user/login'>Log</Link></li>
+          <li><Link to='/user/profile'>Prof</Link></li>
+          <li><Link to='/event'>Event</Link></li>
         </ul>
         <Switch>
           <Route exact path='/user/register' render = {(props) => <Registration {...props} register={this.register} /> } /> 
