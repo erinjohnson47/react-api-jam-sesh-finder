@@ -15,8 +15,6 @@ const My404 = () =>{
     )
 }
 
-
-
 class App extends Component {
   state = {
     username: '',
@@ -78,7 +76,7 @@ class App extends Component {
           <Route exact path='/user/register' render = {(props) => <Registration {...props} register={this.register} /> } /> 
           <Route exact path='/user/login' render = {(props) => <Login {...props} login={this.login}/>} />
           <Route exact path='/user/profile' render = {(props) => <Profile {...props} userInfo={this.state} /> } />
-          <Route exact path='/event' render = {(props) => <EventContainer {...props} /> } />
+          <Route exact path='/event' render = {(props) => <EventContainer {...props} addEvent={this.addEvent}/> } />
           <Route component={My404} />
         </Switch>
       </main>
