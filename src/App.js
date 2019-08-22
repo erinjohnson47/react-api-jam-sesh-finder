@@ -26,7 +26,6 @@ class App extends Component {
 
   componentDidMount(){
     const user = localStorage.getItem("jam_user")
-    console.log(JSON.parse(user))
     const parsedUser = JSON.parse(user)
     if (user){
       this.setState({
@@ -81,6 +80,7 @@ class App extends Component {
       return err;
     }
   }
+  logout
   render(){
     return (
       <main>
