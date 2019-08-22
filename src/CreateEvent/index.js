@@ -60,6 +60,9 @@ class CreateEvent extends Component {
                         />
                     Date:
                     <DateInput 
+                        hideMobileKeyboard
+                        closable
+                        popupPosition = 'bottom center'
                         iconPosition='left' 
                         placeholder='date of event' 
                         name='date' 
@@ -68,6 +71,8 @@ class CreateEvent extends Component {
                         />
                     Start Time:
                     <TimeInput 
+                        closable
+                        hideMobileKeyboard
                         fluid icon='clock outline' 
                         placeholder='start time' 
                         iconPosition='left' 
@@ -77,6 +82,8 @@ class CreateEvent extends Component {
                         />
                     End Time:
                     <TimeInput 
+                        closable
+                        hideMobileKeyboard
                         fluid icon='clock' 
                         iconPosition='left' 
                         placeholder='end time' 

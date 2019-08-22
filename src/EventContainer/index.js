@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CreateEvent from '../CreateEvent';
 import Events from '../EventList';
 
+
 class EventContainer extends Component {
     state = {
         events: []
