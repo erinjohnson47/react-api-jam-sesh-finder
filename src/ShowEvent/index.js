@@ -36,15 +36,17 @@ class ShowEvent extends Component {
             return err
         }
     }
+
     
     render() {
+        const event = this.props.events.filter(e => Number(this.props.match.params.id) === e.id)[0] || {}
         return(
         <div>
-            <h1>{this.props.singleEvent[0]['title']}</h1>
+            <h1>{event['title']}</h1>
             <ul>
-                <li>{this.props.singleEvent[0]['location']}</li>
-                <li>{this.props.singleEvent[0]['start_time']}</li>
-                <li>{this.props.singleEvent[0]['end_time']}</li>
+                <li>{event['location']}</li>
+                <li>{event['start_time']}</li>
+                <li>{event['end_time']}</li>
             </ul>
             <Button 
                         color='green' 
@@ -56,7 +58,7 @@ class ShowEvent extends Component {
                     <Button 
                         color='red'
                         floated='left'
-                        onClick={() => this.removeEvent(this.props.singleEvent[0]['id'])}
+                        onClick={() => this.removeEvent(event['id'])}
                         >
                     Delete Event                    
                     <Icon name='delete' />
