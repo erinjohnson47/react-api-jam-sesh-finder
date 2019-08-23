@@ -7,7 +7,7 @@ class Profile extends Component {
         username: '',
         email: '',
         image: '',
-        location: '',
+        location: ''
         }
     
     logoutUser = async () => {

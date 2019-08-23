@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { Button, Form, Grid, Header, Image, Message, Segment} from 'semantic-ui-react';
 import { withRouter } from "react-router";
 
@@ -15,11 +14,7 @@ class CreateEvent extends Component {
         location: ''
     }
     handleChange = (e, {name, value}) => {
-        if (this.state.hasOwnProperty(name)) {
-            this.setState({ [name]: value });
-        } else {
         this.setState({[e.currentTarget.name]: e.currentTarget.value})
-        }
         console.log(this.state)
     }
     handleSubmit = async (e) => {
@@ -55,40 +50,33 @@ class CreateEvent extends Component {
                         placeholder='event name' 
                         type='text' 
                         name='title' 
-                        value={this.state.title}
                         onChange={this.handleChange}    
                         />
                     Date:
-                    <DateInput 
-                        hideMobileKeyboard
-                        closable
-                        popupPosition = 'bottom center'
+                    <Form.Input 
+                        type='date'
+                        fluid icon='calendar'
                         iconPosition='left' 
                         placeholder='date of event' 
                         name='date' 
-                        value={this.state.date} 
                         onChange={this.handleChange}
                         />
                     Start Time:
-                    <TimeInput 
-                        closable
-                        hideMobileKeyboard
+                    <Form.Input 
+                        type='time'
                         fluid icon='clock outline' 
-                        placeholder='start time' 
+                        placeholder='hh:mm am/pm' 
                         iconPosition='left' 
                         name='start_time' 
-                        value={this.state.start_time} 
                         onChange={this.handleChange}
                         />
                     End Time:
-                    <TimeInput 
-                        closable
-                        hideMobileKeyboard
+                    <Form.Input 
+                        type='time'
                         fluid icon='clock' 
                         iconPosition='left' 
                         placeholder='end time' 
                         name='end_time' 
-                        value={this.state.end_time}
                         onChange={this.handleChange}   
                         />
                     Location:
@@ -97,7 +85,6 @@ class CreateEvent extends Component {
                         iconPosition='left' 
                         placeholder='where is your event located?' type="text" 
                         name='location' 
-                        value={this.state.location}
                         onChange={this.handleChange}/>
                     <Button fluid size='large' type='sumbit'>Submit</Button>
                     </Segment>

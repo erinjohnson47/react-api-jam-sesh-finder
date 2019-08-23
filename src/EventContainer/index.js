@@ -5,10 +5,7 @@ import Events from '../EventList';
 
 class EventContainer extends Component {
     state = {
-        events: []
-    }
-    componentDidMount() {
-        this.getAllEvents();
+        events: [],
     }
     addEvent = async (newEvent)  =>  {
         console.log(newEvent, 'in add event');
@@ -38,24 +35,7 @@ class EventContainer extends Component {
             return err;
         }
     }
-    getAllEvents = async () =>  {
-        try {
-            const getEvents = await fetch('http://localhost:8000/event/', {
-                credentials: 'include',
-                method: 'GET'
-            })
-            console.log(getEvents, 'this should be all the events');
-            const eventsResponse = await getEvents.json();
-            console.log(eventsResponse);
-            this.setState({
-                events: [...eventsResponse.data]
-            });
-        }
-        catch(err)  {
-            console.log(err);
-            return err;
-        }
-    }
+    
     deleteEvent = async (id) => {
         try {
             const deleteEvent = await fetch('http://localhost:8000/event/'+id, {
@@ -75,10 +55,11 @@ class EventContainer extends Component {
     }
     render() {
         console.log(this.state, 'state in render of event container');
+        console.log(this.props, '<this.props.events in componentDidMount in container')
         return(
         <div>
             <CreateEvent addEvent={this.addEvent}/>
-            <Events events={this.state.events} removeEvent={this.deleteEvent}/>
+            <Events showEvent={this.props.showEvent} events={this.props.events} removeEvent={this.deleteEvent}/>
         </div>
         )
     }
