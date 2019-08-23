@@ -3,9 +3,10 @@ import './App.css';
 import Registration from './Registration'
 import Profile from './Profile';
 import EventContainer from './EventContainer';
-// import ShowEvent from './ShowEvent'
+import ShowEvent from './ShowEvent'
 import { Route, Switch, Link } from 'react-router-dom';
 import Login from './Login'
+import { withRouter } from "react-router";
 
 
 const My404 = () =>{
@@ -23,7 +24,18 @@ class App extends Component {
     password: '',
     location: '',
     image: '',
-    events: []
+    events: [],
+    singleEvent: {
+      date: '',
+      end_time: '',
+      id: null,
+      location: '',
+      start_time: '',
+      title: '',
+      created_by: {
+        id: null
+      }
+    }
   }
 
   componentDidMount(){
@@ -58,7 +70,12 @@ class App extends Component {
     }
 }
 showEvent = (id) => {
-  console.log(id)
+  console.log(typeof(id));
+  const event = this.state.events.filter(event => event.id === id);
+  this.setState({
+    singleEvent: event
+  })
+  this.props.history.push('/event/' + id)
 }
   login = async (loginInfo) => {
     try {
@@ -106,6 +123,7 @@ showEvent = (id) => {
   }
   logout
   render(){
+    console.log(this.state.singleEvent, "<------->")
     return (
       <main>
         <ul>
@@ -119,7 +137,7 @@ showEvent = (id) => {
           <Route exact path='/user/login' render = {(props) => <Login {...props} login={this.login}/>} />
           <Route exact path='/user/profile' render = {(props) => <Profile {...props} userInfo={this.state} /> } />
           <Route exact path='/event' render = {(props) => <EventContainer {...props} events={this.state.events} addEvent={this.addEvent} showEvent={this.showEvent}/> } />
-          {/* <Route exact path='/event/:id' render={(props) => <ShowEvent } */}
+          <Route exact path='/event/:id' render={(props) => <ShowEvent singleEvent = {this.state.singleEvent} getAllEvents= {this.getAllEvents} /> } />
           <Route component={My404} />
         </Switch>
       </main>
@@ -127,7 +145,7 @@ showEvent = (id) => {
   }
 }
 
-export default App;
+export default withRouter(App);
 
 
 
