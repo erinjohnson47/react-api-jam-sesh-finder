@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, Icon, Item, Label } from 'semantic-ui-react';
 import { withRouter } from "react-router";
 import EditEvent from '../EditEvent';
-import { async } from 'q';
 
 
 
@@ -50,14 +49,49 @@ class ShowEvent extends Component {
             const eventArr = eventsResponse.data;
             const event = eventArr.filter(e => e.id === Number(this.props.match.params.id));
             console.log(event, 'this should be a single event')
+            const date = event[0].date;
+            const arrDate = date.split('-');
+            const properDate = arrDate[2] + '-' + arrDate[1] + '-' + arrDate[0];
             this.setState({
-                date: event[0].date,
+                date: properDate,
                 end_time: event[0].end_time,
                 id: event[0].id,
                 location: event[0].location,
                 start_time: event[0].start_time,
-                title: event[0].title
+                title: event[0].title,
+                created_by: event[0].created_by
             });
+        }
+        catch(err)  {
+            console.log(err);
+            return err;
+        }
+    }
+    updateEvent = async (event)  =>  {
+        try {
+            console.log(event);
+            this.setState({
+                date: event.date,
+                end_time: event.end_time,
+                id: event.id,
+                location: event.location,
+                start_time: event.start_time,
+                title: event.title
+            })
+            // const editRequest = await fetch('http://localhost:8000/event/' + this.state.id, {
+            // method: 'PUT',
+            // body: JSON.stringify(event),
+            // credentials: 'include',
+            // headers: {
+            //  'Content-Type': 'application/json'
+            // }
+            // })
+            // console.log(editRequest, 'this is edit request');
+            // if(editRequest.status !== 200){
+            //     throw Error('edit is not working')
+            //   }
+            //   const editResponse = await editRequest.json();
+            //   console.log(editResponse, 'this is edit response');
         }
         catch(err)  {
             console.log(err);
@@ -90,7 +124,7 @@ class ShowEvent extends Component {
                     Delete Event                    
                     <Icon name='delete' />
                     </Button>
-                    <EditEvent event = {this.state}/>
+                    <EditEvent event = {this.state} updateEvent={this.updateEvent}/>
         </div>
         )
 }}

@@ -3,26 +3,48 @@ import { Button, Header, Modal, Form, Input, Segment } from 'semantic-ui-react';
 
 export default class EditEvent extends Component {
     state = {
-        
+        date: '',
+        end_time: '',
+        id: null,
+        location: '',
+        start_time: '',
+        title: '',
+        created_by: {},
+        created_at: ''
     }
-    // updateUser = (e)  =>  {
-    //     this.setState({
-    //         [e.target.name]: e.target.value
-    //     })
-    // }
-    // submitHandler = (e) =>  {
-    //     e.preventDefault();
-    //     console.log(this.state, 'state in submit handler register user');
-    //     this.props.registerUser(this.state);
-    // }
+    fillForm = ()  =>  {
+        
+        const event = this.props.event;
+        this.setState({
+            date: event.date,
+            end_time: event.end_time,
+            id: event.id,
+            location: event.location,
+            start_time: event.start_time,
+            title: event.title,
+            created_by: event.created_by
+        })
+    }
+    handleChange = (e)  =>  {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+        console.log(this.state);
+    }
+    submitHandler = (e) =>  {
+        e.preventDefault();
+        console.log(this.state, 'state in submit handler');
+        this.props.updateEvent(this.state);
+    }
     render() {
+        console.log(this.state, 'state in edit event');
         return(
-            <Modal trigger={<Button color="green">Edit Event</Button>}>
+            <Modal trigger={<Button color="green" onClick={this.fillForm}>Edit Event</Button>}>
                 <Modal.Header>Edit Event</Modal.Header>
                 <Modal.Content>
                 <Modal.Description>
                 <Header>Edit your event here</Header>
-                <Form>
+                <Form onSubmit={this.submitHandler}>
                     <Segment stacked>
                     Event Name:
                     <Form.Input 
@@ -30,7 +52,9 @@ export default class EditEvent extends Component {
                         iconPosition='left' 
                         placeholder='event name' 
                         type='text' 
-                        name='title'    
+                        name='title'
+                        value={this.state.title}
+                        onChange={this.handleChange}   
                         />
                     Date:
                     <Form.Input 
@@ -39,6 +63,8 @@ export default class EditEvent extends Component {
                         iconPosition='left' 
                         placeholder='date of event' 
                         name='date' 
+                        value ={this.state.date}
+                        onChange={this.handleChange} 
                         />
                     Start Time:
                     <Form.Input 
@@ -47,6 +73,8 @@ export default class EditEvent extends Component {
                         placeholder='hh:mm am/pm' 
                         iconPosition='left' 
                         name='start_time' 
+                        value={this.state.start_time}
+                        onChange={this.handleChange} 
                         />
                     End Time:
                     <Form.Input 
@@ -54,14 +82,18 @@ export default class EditEvent extends Component {
                         fluid icon='clock' 
                         iconPosition='left' 
                         placeholder='end time' 
-                        name='end_time'   
+                        name='end_time'
+                        value={this.state.end_time}
+                        onChange={this.handleChange}   
                         />
                     Location:
                     <Form.Input 
                         fluid icon='map marker' 
                         iconPosition='left' 
                         placeholder='where is your event located?' type="text" 
-                        name='location' 
+                        name='location'
+                        value={this.state.location}
+                        onChange={this.handleChange} 
                     />
                     <Button fluid size='large' type='sumbit'>Submit</Button>
                     </Segment>
@@ -72,3 +104,4 @@ export default class EditEvent extends Component {
         )
     }
 }
+
