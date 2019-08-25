@@ -15,9 +15,6 @@ class ShowEvent extends Component {
             location: '',
             start_time: '',
             title: '',
-            created_by: {
-              id: null
-            }
     }
     componentDidMount(){
         this.getEvent();
@@ -59,7 +56,6 @@ class ShowEvent extends Component {
                 location: event[0].location,
                 start_time: event[0].start_time,
                 title: event[0].title,
-                created_by: event[0].created_by
             });
         }
         catch(err)  {
@@ -78,20 +74,20 @@ class ShowEvent extends Component {
                 start_time: event.start_time,
                 title: event.title
             })
-            // const editRequest = await fetch('http://localhost:8000/event/' + this.state.id, {
-            // method: 'PUT',
-            // body: JSON.stringify(event),
-            // credentials: 'include',
-            // headers: {
-            //  'Content-Type': 'application/json'
-            // }
-            // })
-            // console.log(editRequest, 'this is edit request');
-            // if(editRequest.status !== 200){
-            //     throw Error('edit is not working')
-            //   }
-            //   const editResponse = await editRequest.json();
-            //   console.log(editResponse, 'this is edit response');
+            const editRequest = await fetch('http://localhost:8000/event/' + this.state.id, {
+            method: 'PUT',
+            body: JSON.stringify(event),
+            credentials: 'include',
+            headers: {
+             'Content-Type': 'application/json'
+            }
+            })
+            console.log(editRequest, 'this is edit request');
+            if(editRequest.status !== 200){
+                throw Error('edit is not working')
+              }
+              const editResponse = await editRequest.json();
+              console.log(editResponse, 'this is edit response');
         }
         catch(err)  {
             console.log(err);

@@ -8,9 +8,7 @@ export default class EditEvent extends Component {
         id: null,
         location: '',
         start_time: '',
-        title: '',
-        created_by: {},
-        created_at: ''
+        title: ''
     }
     fillForm = ()  =>  {
         
@@ -22,7 +20,6 @@ export default class EditEvent extends Component {
             location: event.location,
             start_time: event.start_time,
             title: event.title,
-            created_by: event.created_by
         })
     }
     handleChange = (e)  =>  {
@@ -35,6 +32,9 @@ export default class EditEvent extends Component {
         e.preventDefault();
         console.log(this.state, 'state in submit handler');
         this.props.updateEvent(this.state);
+        this.setState({
+            date: '',
+        })
     }
     render() {
         console.log(this.state, 'state in edit event');
