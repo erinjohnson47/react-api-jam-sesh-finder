@@ -100,7 +100,6 @@ class ShowEvent extends Component {
     updateEvent = async (event)  =>  {
         delete event.modalOpen
         try {
-            console.log(event);
             this.setState({
                 date: event.date,
                 end_time: event.end_time,
@@ -117,12 +116,10 @@ class ShowEvent extends Component {
                 'Content-Type': 'application/json'
             }
             })
-            console.log(editRequest, 'this is edit request');
             if(editRequest.status !== 200){
                 throw Error('edit is not working')
             }
             const editResponse = await editRequest.json();
-            console.log(editResponse, 'this is edit response');
         }
         catch(err)  {
             console.log(err);

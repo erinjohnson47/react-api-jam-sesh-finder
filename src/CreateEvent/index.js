@@ -20,12 +20,11 @@ class CreateEvent extends Component {
         e.preventDefault();
        
         const addEvent = this.props.addEvent(this.state);
-        console.log(addEvent)
         addEvent.then((data) => {
             if(data.status.message === 'Success') {
                 this.props.history.push('/event')
             } else {
-                console.log(data, '<-data', this.props, '<-this.props')
+                console.log('there was an error retrieving data')
             }
         }).catch((err) => {
             console.log(err)

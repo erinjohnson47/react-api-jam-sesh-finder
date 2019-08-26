@@ -7,7 +7,8 @@ import ShowEvent from './ShowEvent'
 import { Route, Switch, Link } from 'react-router-dom';
 import Login from './Login'
 import { withRouter } from "react-router";
-
+// import NavBar from './NavBar'
+console.log(process.env)
 
 const My404 = () =>{
   return (
@@ -60,6 +61,7 @@ class App extends Component {
 
   getAllEvents = async () =>  {
     try {
+      debugger
         const getEvents = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/`, {
             credentials: 'include',
             method: 'GET'
@@ -104,7 +106,7 @@ showEvent = (id) => {
   }
   register = async (data) =>  {
     try {
-      const registerResponse = await fetch(process.env.REACT_APP_BACKEND_URL+'/user/register', {
+      const registerResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/register`, {
         method: 'POST',
         credentials: 'include',
         body: data,
@@ -127,11 +129,12 @@ showEvent = (id) => {
   render(){
     return (
       <main>
+        {/* <NavBar /> */}
         <ul>
-          <li><Link to='/user/register'>Reg</Link></li>
-          <li><Link to='/user/login'>Log</Link></li>
-          <li><Link to='/user/profile'>Prof</Link></li>
-          <li><Link to='/event'>Event</Link></li>
+          <li><Link to='/user/register'>Register</Link></li>
+          <li><Link to='/user/login'>Login</Link></li>
+          <li><Link to='/user/profile'>Profile</Link></li>
+          <li><Link to='/event'>Events</Link></li>
         </ul>
         <Switch>
           <Route exact path='/user/register' render = {(props) => <Registration {...props} register={this.register} /> } /> 

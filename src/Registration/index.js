@@ -29,18 +29,17 @@ class Registration extends Component {
         data.append('password', this.state.password);
         data.append('email', this.state.email);
         data.append('location', this.state.location);
-        console.log(data, '<-----data', data.entries(), '<------data entries');
-        for (let pair of data.entries()){
-            console.log(pair[0], ',******** ', pair[1])
-        }
+        // console.log(data, '<-----data', data.entries(), '<------data entries');
+        // for (let pair of data.entries()){
+        //     console.log(pair[0], ',******** ', pair[1])
+        // }
         const registerCall = this.props.register(data);
 
         registerCall.then((data) => {
-        console.log(data)
         if(data.status.message === "Success"){
             this.props.history.push('/user/profile')
         } else {
-            console.log(data, ' this should have an error message? How could you display that on the screen')
+            console.log('error message')
         }
     })
     }

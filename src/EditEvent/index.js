@@ -28,7 +28,6 @@ export default class EditEvent extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-        console.log(this.state);
     }
     submitHandler = (e) =>  {
         e.preventDefault();

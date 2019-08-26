@@ -53,8 +53,6 @@ class EventContainer extends Component {
         }
     }
     render() {
-        console.log(this.state, 'state in render of event container');
-        console.log(this.props, '<this.props.events in componentDidMount in container')
         return(
         <div>
             <CreateEvent addEvent={this.addEvent}/>
