@@ -3,6 +3,7 @@ import { Button, Header, Modal, Form, Input, Segment } from 'semantic-ui-react';
 
 export default class EditEvent extends Component {
     state = {
+        modalOpen: false,
         date: '',
         end_time: '',
         id: null,
@@ -20,6 +21,7 @@ export default class EditEvent extends Component {
             location: event.location,
             start_time: event.start_time,
             title: event.title,
+            modalOpen: true
         })
     }
     handleChange = (e)  =>  {
@@ -32,12 +34,13 @@ export default class EditEvent extends Component {
         e.preventDefault();
         this.props.updateEvent(this.state);
         this.setState({
-            date: '',
+            modalOpen: false
         })
+        
     }
     render() {
         return(
-            <Modal trigger={<Button color="green" onClick={this.fillForm}>Edit Event</Button>}>
+            <Modal open={this.state.modalOpen} trigger={<Button color="green" onClick={this.fillForm}>Edit Event</Button>}>
                 <Modal.Header>Edit Event</Modal.Header>
                 <Modal.Content>
                 <Modal.Description>
