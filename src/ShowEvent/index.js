@@ -64,6 +64,7 @@ class ShowEvent extends Component {
         }
     }
     updateEvent = async (event)  =>  {
+        delete event.modalOpen
         try {
             console.log(event);
             this.setState({
