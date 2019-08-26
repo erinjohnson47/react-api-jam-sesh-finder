@@ -10,7 +10,7 @@ class EventContainer extends Component {
 
     addEvent = async (newEvent)  =>  {
         try {
-            const createEvent = await fetch('http://localhost:8000/event/', {
+            const createEvent = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(newEvent),
@@ -37,7 +37,7 @@ class EventContainer extends Component {
     
     deleteEvent = async (id) => {
         try {
-            const deleteEvent = await fetch('http://localhost:8000/event/'+id, {
+            const deleteEvent = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/${id}`, {
                 credentials: 'include',
                 method: 'DELETE'
             })

@@ -60,7 +60,7 @@ class App extends Component {
 
   getAllEvents = async () =>  {
     try {
-        const getEvents = await fetch('http://localhost:8000/event/', {
+        const getEvents = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/`, {
             credentials: 'include',
             method: 'GET'
         })
@@ -83,7 +83,7 @@ showEvent = (id) => {
 }
   login = async (loginInfo) => {
     try {
-      const loginResponse = await fetch('http://localhost:8000/user/login', {
+      const loginResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/login`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(loginInfo),
@@ -104,7 +104,7 @@ showEvent = (id) => {
   }
   register = async (data) =>  {
     try {
-      const registerResponse = await fetch('http://localhost:8000/user/register', {
+      const registerResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/register`, {
         method: 'POST',
         credentials: 'include',
         body: data,

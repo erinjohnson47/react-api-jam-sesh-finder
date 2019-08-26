@@ -24,7 +24,7 @@ class ShowEvent extends Component {
     }
     removeEvent = async (id) => {
         try {
-            const deleteEvent = await fetch('http://localhost:8000/event/'+id, {
+            const deleteEvent = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/${id}`, {
                 credentials: 'include',
                 method: 'DELETE'
             })
@@ -40,7 +40,7 @@ class ShowEvent extends Component {
     }
     getEvent = async ()  =>  {
         try {
-            const getEvents = await fetch('http://localhost:8000/event/', {
+            const getEvents = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/`, {
                 credentials: 'include',
                 method: 'GET'
             })
@@ -65,7 +65,7 @@ class ShowEvent extends Component {
         }
     }
     getAllJoinedUsers = async () =>  {
-        const getAllJoinedUsers = await fetch('http://localhost:8000/event/join/', {
+        const getAllJoinedUsers = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/join/`, {
                 credentials: 'include',
                 method: 'GET'
             })
@@ -75,15 +75,11 @@ class ShowEvent extends Component {
         this.setState({
             joinedUsers: filteredUsers
         })
-        console.log(this.state.joinedUsers[0].user['username'], 'this should be all users that have joined events');
-        
     }
     joinEvent = async (id) => {
         try {
-            console.log(this.state.id, 'this.state.id in join event')
             const idToStr = this.state.id.toString();
-            console.log(idToStr, 'id to string', typeof(idToStr), 'type of id to string')
-            const joinEvent = await fetch('http://localhost:8000/event/join/', {
+            const joinEvent = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/join/`, {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify(idToStr),
@@ -91,12 +87,10 @@ class ShowEvent extends Component {
                     'Content-Type': 'application/json'
                 }
             })
-            console.log(joinEvent, 'joinEvent route');
             if(joinEvent.status !== 200) {
                 throw Error('Resource not found');
             }
             const joinEventResponse = await joinEvent.json();
-            console.log(joinEventResponse, '<-joinEventResponse in joinEvent route');
             return joinEventResponse
         } catch (err) {
             console.log(err)
@@ -115,7 +109,7 @@ class ShowEvent extends Component {
                 start_time: event.start_time,
                 title: event.title
             })
-            const editRequest = await fetch('http://localhost:8000/event/' + this.state.id, {
+            const editRequest = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/${this.state.id}`, {
             method: 'PUT',
             body: JSON.stringify(event),
             credentials: 'include',
@@ -139,19 +133,18 @@ class ShowEvent extends Component {
     render() {
         const userList = this.state.joinedUsers.map((user) => {
             return (
-            //   <span key ={user.id}>{user.user['username']}</span>
-              <Card key={user.id}>
+            <Card key={user.id}>
                 <Card.Content>
                     <Image
                     floated='right'
                     size='mini'
-                    src={'http://localhost:8000/profile_pics/' + user.user.image}
+                    src={`${process.env.REACT_APP_BACKEND_URL}/profile_pics/${user.user.image}`}
                     />
                     <Card.Header>{user.user['username']}</Card.Header>
                     <Card.Meta>{user.user['username']}</Card.Meta>
                 </Card.Content>
                 </Card>
-              )
+            )
         })
         return(
             <div>
