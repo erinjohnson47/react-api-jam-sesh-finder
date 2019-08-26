@@ -130,12 +130,13 @@ class ShowEvent extends Component {
             </ul>
             <Button 
                 onClick={() => this.joinEvent(this.state['id'])}
-                color='green' 
+                primary                
                 floated='left'
                 >
                 Join Event
                 <Icon name='right chevron' />
             </Button>
+            <EditEvent event = {this.state} updateEvent={this.updateEvent}/>
             <Button 
                 color='red'
                 floated='left'
@@ -144,7 +145,6 @@ class ShowEvent extends Component {
                 Delete Event                    
                 <Icon name='delete' />
             </Button>
-            <EditEvent event = {this.state} updateEvent={this.updateEvent}/>
         </div>
         )
 }}

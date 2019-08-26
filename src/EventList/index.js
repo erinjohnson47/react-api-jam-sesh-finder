@@ -19,21 +19,6 @@ const Events = ({ events, removeEvent, showEvent }) =>  {
                     See Details  
                         <Icon name='info' floated='left'/>
                     </Button>
-                    <Button 
-                        color='green' 
-                        floated='left'
-                    >
-                    Join Event
-                        <Icon name='right chevron' />
-                    </Button>
-                    <Button 
-                        color='red'
-                        floated='left'
-                        onClick={() => removeEvent(event.id)}
-                        >
-                    Delete Event                    
-                    <Icon name='delete' />
-                    </Button>
                 </Item.Extra>
             </Item>
         )
