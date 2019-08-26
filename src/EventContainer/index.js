@@ -7,6 +7,7 @@ class EventContainer extends Component {
     state = {
         events: [],
     }
+
     addEvent = async (newEvent)  =>  {
         try {
             const createEvent = await fetch('http://localhost:8000/event/', {
@@ -22,11 +23,12 @@ class EventContainer extends Component {
             }
 
             const createEventResponse = await createEvent.json();
-            this.setState({
-                events: [...this.state.events, createEventResponse.data]
+            // this.setState({
+            //     events: [...this.state.events, createEventResponse.data]
 
-            })
-            return createEventResponse
+            // })
+            this.props.addNewEvent(createEventResponse.data)
+            // return createEventResponse
         } catch(err) {
             console.log(err);
             return err;
