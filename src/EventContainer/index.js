@@ -8,7 +8,6 @@ class EventContainer extends Component {
         events: [],
     }
     addEvent = async (newEvent)  =>  {
-        console.log(newEvent, 'in add event');
         try {
             const createEvent = await fetch('http://localhost:8000/event/', {
             method: 'POST',
@@ -18,13 +17,11 @@ class EventContainer extends Component {
                 'Content-Type': 'application/json'
             }
             })
-            console.log(createEvent, 'create event ****');
             if(createEvent.status !== 200) {
                 throw Error('Resource not found');
             }
 
             const createEventResponse = await createEvent.json();
-            console.log(createEventResponse, '<createEventResponse in addEvent route');
             this.setState({
                 events: [...this.state.events, createEventResponse.data]
 

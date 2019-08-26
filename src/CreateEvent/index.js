@@ -15,14 +15,11 @@ class CreateEvent extends Component {
     }
     handleChange = (e, {name, value}) => {
         this.setState({[e.currentTarget.name]: e.currentTarget.value})
-        console.log(this.state)
     }
     handleSubmit = async (e) => {
         e.preventDefault();
         const addEvent = this.props.addEvent(this.state);
-        console.log(addEvent, '<-addEvent in handleSubmit')
         addEvent.then((data) => {
-            console.log(data, '<-data from add event')
             if(data.status.message === 'Success') {
                 this.props.history.push('/event')
             } else {

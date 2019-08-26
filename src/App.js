@@ -57,9 +57,7 @@ class App extends Component {
             credentials: 'include',
             method: 'GET'
         })
-        console.log(getEvents, 'fetch request to backend');
         const eventsResponse = await getEvents.json();
-        console.log(eventsResponse, '<events Response in getAllEvents in EventContainer');
         this.setState({
             events: [...eventsResponse.data],
         });
@@ -70,7 +68,6 @@ class App extends Component {
     }
 }
 showEvent = (id) => {
-  console.log(typeof(id));
   const event = this.state.events.filter(event => event.id === id);
   this.setState({
     singleEvent: event
@@ -88,7 +85,6 @@ showEvent = (id) => {
         }
       })
       const parsedResponse = await loginResponse.json();
-      console.log(parsedResponse, '<-parsedResponse in login');
       localStorage.setItem("jam_user", JSON.stringify(parsedResponse.data))
       this.setState({
           ...parsedResponse.data
@@ -110,7 +106,6 @@ showEvent = (id) => {
         }
       })
       const parsedResponse = await registerResponse.json();
-      console.log(parsedResponse, '<-parsedResponse in register');
       this.setState({
           ...parsedResponse.data
       })
@@ -123,7 +118,6 @@ showEvent = (id) => {
   }
   logout
   render(){
-    console.log(this.state.singleEvent, "<------->")
     return (
       <main>
         <ul>

@@ -30,14 +30,12 @@ export default class EditEvent extends Component {
     }
     submitHandler = (e) =>  {
         e.preventDefault();
-        console.log(this.state, 'state in submit handler');
         this.props.updateEvent(this.state);
         this.setState({
             date: '',
         })
     }
     render() {
-        console.log(this.state, 'state in edit event');
         return(
             <Modal trigger={<Button color="green" onClick={this.fillForm}>Edit Event</Button>}>
                 <Modal.Header>Edit Event</Modal.Header>
