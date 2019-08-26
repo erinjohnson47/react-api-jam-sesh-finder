@@ -51,6 +51,13 @@ class App extends Component {
       })
     }
   }
+
+  addNewEvent = (event) =>{
+    this.setState({
+      events: [...this.state.events, event]
+    })
+  }
+
   getAllEvents = async () =>  {
     try {
         const getEvents = await fetch('http://localhost:8000/event/', {
@@ -130,7 +137,7 @@ showEvent = (id) => {
           <Route exact path='/user/register' render = {(props) => <Registration {...props} register={this.register} /> } /> 
           <Route exact path='/user/login' render = {(props) => <Login {...props} login={this.login}/>} />
           <Route exact path='/user/profile' render = {(props) => <Profile {...props} userInfo={this.state} /> } />
-          <Route exact path='/event' render = {(props) => <EventContainer {...props} events={this.state.events} addEvent={this.addEvent} showEvent={this.showEvent}/> } />
+          <Route exact path='/event' render = {(props) => <EventContainer {...props} events={this.state.events} addNewEvent={this.addNewEvent} showEvent={this.showEvent}/> } />
           <Route exact path='/event/:id' render={(props) => <ShowEvent {...props} events={this.state.events} singleEvent = {this.state.singleEvent} getAllEvents= {this.getAllEvents} /> } />
           <Route component={My404} />
         </Switch>

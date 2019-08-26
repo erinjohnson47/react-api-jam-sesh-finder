@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Icon, Item, Label } from 'semantic-ui-react';
+import { Button, Icon, Card, Image, Header, List } from 'semantic-ui-react';
 import { withRouter } from "react-router";
 import EditEvent from '../EditEvent';
+
 
 
 
@@ -15,9 +16,11 @@ class ShowEvent extends Component {
             location: '',
             start_time: '',
             title: '',
+            joinedUsers: []
     }
     componentDidMount(){
         this.getEvent();
+        this.getAllJoinedUsers();
     }
     removeEvent = async (id) => {
         try {
@@ -60,6 +63,20 @@ class ShowEvent extends Component {
             console.log(err);
             return err;
         }
+    }
+    getAllJoinedUsers = async () =>  {
+        const getAllJoinedUsers = await fetch('http://localhost:8000/event/join/', {
+                credentials: 'include',
+                method: 'GET'
+            })
+        const allJoinedUsersResponse = await getAllJoinedUsers.json();
+        const arrUsers = allJoinedUsersResponse.data;
+        const filteredUsers = arrUsers.filter(userEvent => userEvent.event['id'] == this.state.id);
+        this.setState({
+            joinedUsers: filteredUsers
+        })
+        console.log(this.state.joinedUsers[0].user['username'], 'this should be all users that have joined events');
+        
     }
     joinEvent = async (id) => {
         try {
@@ -120,31 +137,68 @@ class ShowEvent extends Component {
     }
     
     render() {
+        const userList = this.state.joinedUsers.map((user) => {
+            return (
+            //   <span key ={user.id}>{user.user['username']}</span>
+              <Card key={user.id}>
+                <Card.Content>
+                    <Image
+                    floated='right'
+                    size='mini'
+                    src={'http://localhost:8000/profile_pics/' + user.user.image}
+                    />
+                    <Card.Header>{user.user['username']}</Card.Header>
+                    <Card.Meta>{user.user['username']}</Card.Meta>
+                </Card.Content>
+                </Card>
+              )
+        })
         return(
-        <div>
-            <h1>{this.state['title']}</h1>
-            <ul>
-                <li>{this.state['location']}</li>
-                <li>{this.state['start_time']}</li>
-                <li>{this.state['end_time']}</li>
-            </ul>
-            <Button 
-                onClick={() => this.joinEvent(this.state['id'])}
-                primary                
-                floated='left'
-                >
-                Join Event
-                <Icon name='right chevron' />
-            </Button>
-            <EditEvent event = {this.state} updateEvent={this.updateEvent}/>
-            <Button 
-                color='red'
-                floated='left'
-                onClick={() => this.removeEvent(this.state['id'])}
-                >
-                Delete Event                    
-                <Icon name='delete' />
-            </Button>
+            <div>
+            <Header as='h1' icon textAlign='center'>
+                <Icon name='music' circular />
+                <Header.Content>{this.state['title']}</Header.Content>
+            </Header>
+            <List>
+            <List.Item>
+                <List.Icon name='marker' />
+                <List.Content>{this.state['location']}</List.Content>
+            </List.Item>
+            <List.Item>
+                <List.Icon name='clock outline' />
+                <List.Content>{this.state['start_time']}</List.Content>
+            </List.Item>
+            <List.Item>
+                <List.Icon name='clock' />
+                <List.Content>{this.state['end_time']}</List.Content>
+            </List.Item>
+            <List.Item>
+                <List.Content>
+                <Button 
+                    onClick={() => this.joinEvent(this.state['id'])}
+                    primary                
+                    floated='left'
+                    >
+                    Join Event
+                    <Icon name='right chevron' />
+                </Button>
+                    <EditEvent event = {this.state} updateEvent={this.updateEvent}/>
+                <Button 
+                    color='red'
+                    floated='left'
+                    onClick={() => this.removeEvent(this.state['id'])}
+                    >
+                    Delete Event                    
+                    <Icon name='delete' />
+                    </Button>
+                </List.Content>
+            </List.Item>
+            </List>
+            <Header as='h2' icon textAlign='center'>
+            <Icon name='users' circular />
+            <Header.Content>Users attending {this.state['title']}</Header.Content>
+            </Header>
+            {userList}
         </div>
         )
 }}

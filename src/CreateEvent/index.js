@@ -18,7 +18,9 @@ class CreateEvent extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
+       
         const addEvent = this.props.addEvent(this.state);
+        console.log(addEvent)
         addEvent.then((data) => {
             if(data.status.message === 'Success') {
                 this.props.history.push('/event')
@@ -31,6 +33,7 @@ class CreateEvent extends Component {
         })
     }
     render() {
+        
         return(
             <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
                 <Grid.Column style={{maxWidth: 450}}>
