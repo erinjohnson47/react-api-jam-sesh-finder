@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Icon, Item, Label } from 'semantic-ui-react';
+import { Button, Icon, Item, Label, ListContent } from 'semantic-ui-react';
 import { withRouter } from "react-router";
 import EditEvent from '../EditEvent';
 
@@ -122,29 +122,45 @@ class ShowEvent extends Component {
     render() {
         return(
         <div>
-            <h1>{this.state['title']}</h1>
-            <ul>
-                <li>{this.state['location']}</li>
-                <li>{this.state['start_time']}</li>
-                <li>{this.state['end_time']}</li>
-            </ul>
-            <Button 
-                onClick={() => this.joinEvent(this.state['id'])}
-                primary                
-                floated='left'
-                >
-                Join Event
-                <Icon name='right chevron' />
-            </Button>
-            <EditEvent event = {this.state} updateEvent={this.updateEvent}/>
-            <Button 
-                color='red'
-                floated='left'
-                onClick={() => this.removeEvent(this.state['id'])}
-                >
-                Delete Event                    
-                <Icon name='delete' />
-            </Button>
+        <List>
+            <List.Item>
+                <List.Icon name='music' />
+                <List.Content>{this.state['title']}</List.Content>
+            </List.Item>
+            <List.Item>
+                <List.Icon name='marker' />
+                <List.Content>{this.state['location']}</List.Content>
+            </List.Item>
+            <List.Item>
+                <List.Icon name='clock outline' />
+                <List.Content>{this.state['start_time']}</List.Content>
+            </List.Item>
+            <List.Item>
+                <List.Icon name='clock' />
+                <List.Content>{this.state['end_time']}</List.Content>
+            </List.Item>
+            <List.Item>
+                <List.Content>
+                <Button 
+                    onClick={() => this.joinEvent(this.state['id'])}
+                    primary                
+                    floated='left'
+                    >
+                    Join Event
+                    <Icon name='right chevron' />
+                </Button>
+                    <EditEvent event = {this.state} updateEvent={this.updateEvent}/>
+                <Button 
+                    color='red'
+                    floated='left'
+                    onClick={() => this.removeEvent(this.state['id'])}
+                    >
+                    Delete Event                    
+                    <Icon name='delete' />
+                    </Button>
+                </List.Content>
+            </List.Item>
+            </List>
         </div>
         )
 }}
