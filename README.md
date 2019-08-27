@@ -41,6 +41,9 @@ This project was painstakenly and tirelessly worked on by Jeremy Yandell and Eri
 - listing events joined by a user on their profile page
 - fixing navbar
 - a landing page with description of app and how to use it
+- delete event route does not remove users from join table listing the events they've joined
+- logout route in react
+- link to "Not a Member" on login page and "Already a User?" on Register page
 
 
 #### Future Features We'd Love to Add
