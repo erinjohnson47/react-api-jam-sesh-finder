@@ -7,7 +7,8 @@ import ShowEvent from './ShowEvent'
 import { Route, Switch, Link } from 'react-router-dom';
 import Login from './Login'
 import { withRouter } from "react-router";
-
+import NavBar from './NavBar'
+import Home from './Home';
 
 const My404 = () =>{
   return (
@@ -51,9 +52,17 @@ class App extends Component {
       })
     }
   }
+
+  addNewEvent = (event) =>{
+    this.setState({
+      events: [...this.state.events, event]
+    })
+  }
+
   getAllEvents = async () =>  {
     try {
-        const getEvents = await fetch('http://localhost:8000/event/', {
+      debugger
+        const getEvents = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/`, {
             credentials: 'include',
             method: 'GET'
         })
@@ -76,7 +85,7 @@ showEvent = (id) => {
 }
   login = async (loginInfo) => {
     try {
-      const loginResponse = await fetch('http://localhost:8000/user/login', {
+      const loginResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/login`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(loginInfo),
@@ -97,7 +106,7 @@ showEvent = (id) => {
   }
   register = async (data) =>  {
     try {
-      const registerResponse = await fetch('http://localhost:8000/user/register', {
+      const registerResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/register`, {
         method: 'POST',
         credentials: 'include',
         body: data,
@@ -120,17 +129,14 @@ showEvent = (id) => {
   render(){
     return (
       <main>
-        <ul>
-          <li><Link to='/user/register'>Reg</Link></li>
-          <li><Link to='/user/login'>Log</Link></li>
-          <li><Link to='/user/profile'>Prof</Link></li>
-          <li><Link to='/event'>Event</Link></li>
-        </ul>
+        <NavBar />
+        
         <Switch>
+          <Route exact path='/' render={() => <Home />} />
           <Route exact path='/user/register' render = {(props) => <Registration {...props} register={this.register} /> } /> 
           <Route exact path='/user/login' render = {(props) => <Login {...props} login={this.login}/>} />
           <Route exact path='/user/profile' render = {(props) => <Profile {...props} userInfo={this.state} /> } />
-          <Route exact path='/event' render = {(props) => <EventContainer {...props} events={this.state.events} addEvent={this.addEvent} showEvent={this.showEvent}/> } />
+          <Route exact path='/event' render = {(props) => <EventContainer {...props} events={this.state.events} addNewEvent={this.addNewEvent} showEvent={this.showEvent}/> } />
           <Route exact path='/event/:id' render={(props) => <ShowEvent {...props} events={this.state.events} singleEvent = {this.state.singleEvent} getAllEvents= {this.getAllEvents} /> } />
           <Route component={My404} />
         </Switch>

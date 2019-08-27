@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Icon, Item, Label } from 'semantic-ui-react'
 
 const Events = ({ events, removeEvent, showEvent }) =>  {
-    console.log(events, 'events in EventList')
     const eventList = events.map((event)  =>  {
         return(
             <Item key={event.id}>

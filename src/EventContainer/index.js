@@ -7,9 +7,10 @@ class EventContainer extends Component {
     state = {
         events: [],
     }
+
     addEvent = async (newEvent)  =>  {
         try {
-            const createEvent = await fetch('http://localhost:8000/event/', {
+            const createEvent = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(newEvent),
@@ -22,11 +23,12 @@ class EventContainer extends Component {
             }
 
             const createEventResponse = await createEvent.json();
-            this.setState({
-                events: [...this.state.events, createEventResponse.data]
+            // this.setState({
+            //     events: [...this.state.events, createEventResponse.data]
 
-            })
-            return createEventResponse
+            // })
+            this.props.addNewEvent(createEventResponse.data)
+            // return createEventResponse
         } catch(err) {
             console.log(err);
             return err;
@@ -35,7 +37,7 @@ class EventContainer extends Component {
     
     deleteEvent = async (id) => {
         try {
-            const deleteEvent = await fetch('http://localhost:8000/event/'+id, {
+            const deleteEvent = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event/${id}`, {
                 credentials: 'include',
                 method: 'DELETE'
             })
@@ -51,8 +53,6 @@ class EventContainer extends Component {
         }
     }
     render() {
-        console.log(this.state, 'state in render of event container');
-        console.log(this.props, '<this.props.events in componentDidMount in container')
         return(
         <div>
             <CreateEvent addEvent={this.addEvent}/>

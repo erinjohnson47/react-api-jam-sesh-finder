@@ -12,7 +12,7 @@ class Profile extends Component {
     
     logoutUser = async () => {
         try {
-            await fetch('http://localhost:8000/user/logout')
+            await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/logout`)
             localStorage.clear()
             this.props.history.push('/user/login')
         } catch (err) {
@@ -26,7 +26,7 @@ class Profile extends Component {
             <Grid.Row>
                 <Grid.Column width={4}>
                     <Card
-                    image={'http://localhost:8000/profile_pics/' + this.props.userInfo.image}
+                    image={`${process.env.REACT_APP_BACKEND_URL}/profile_pics/${this.props.userInfo.image}`}
                     header={this.props.userInfo.username}
                     meta={this.props.email}
                     description='greatest profile in the world'

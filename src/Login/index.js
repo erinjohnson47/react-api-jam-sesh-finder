@@ -14,11 +14,10 @@ class Login extends Component {
         e.preventDefault();
         const login = this.props.login(this.state);
         login.then((data) => {
-            console.log(data, '<-data')
             if(data.status.message === 'Success') {
                 this.props.history.push('/user/profile')
             } else {
-                console.log(data, this.props)
+                console.log('there was an error on login')
             }
         }).catch((err) => {
             console.log(err)
