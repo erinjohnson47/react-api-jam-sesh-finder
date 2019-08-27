@@ -1,68 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# JAMBAND
+![image](public/images/jamband-cover-photo.png)
 
-## Available Scripts
+## A virtual community of musicians where you can post jam sessions you'd like to host and invite other musicians to connect with you to play music together
+### How does it work?
+> Do you feel like jamming?  You play the guitar, but you need a drummer and a bassist?  Or, you're missing the fourth in your string quartet? JamBand connects you with other musicians so you can play music together!
 
-In the project directory, you can run:
+### How it works
+1. [Click here to go to JamBand!](https://jamband.herokuapp.com/event)
+2. click "Register" in the top left corner to create a username and profile.
+3. Add a jamming event so that others near you can join the event!
 
-### `npm start`
+### Technologies Used
+- JavaScript
+- HTML5
+- CSS3
+- React
+- SQL
+- Sqlite (in development)
+- Peewee
+- Flask
+- Python 
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Wireframe
+#### Planning the layout of the SQL data tables
+![views](public/images/SQL-data-wireframe.png)
+##### The Home page
+![home page](public/images/wireframe_homepage.JPG)
+##### Events page
+![events page](public/images/wireframe_events.JPG)
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### The Group
+This project was painstakenly and tirelessly worked on by Jeremy Yandell and Erin Johnson.  Erin was the github manager and drafted the readme file.  Jeremy and Erin mostly created this app using pair programming with a driver/navigator format where one person typed while the other directed.  During this process the pair communicated well with each other to solve challenging problems despite different ways of learning and troubleshooting.
 
-### `npm test`
+#### Future Features We'd Love to Add
+- Search by 
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### Road blocks or works in progress
+- only 
