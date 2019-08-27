@@ -7,7 +7,7 @@ import ShowEvent from './ShowEvent'
 import { Route, Switch, Link } from 'react-router-dom';
 import Login from './Login'
 import { withRouter } from "react-router";
-// import NavBar from './NavBar'
+import NavBar from './NavBar'
 console.log(process.env)
 
 const My404 = () =>{
@@ -129,13 +129,8 @@ showEvent = (id) => {
   render(){
     return (
       <main>
-        {/* <NavBar /> */}
-        <ul>
-          <li><Link to='/user/register'>Register</Link></li>
-          <li><Link to='/user/login'>Login</Link></li>
-          <li><Link to='/user/profile'>Profile</Link></li>
-          <li><Link to='/event'>Events</Link></li>
-        </ul>
+        <NavBar />
+        
         <Switch>
           <Route exact path='/user/register' render = {(props) => <Registration {...props} register={this.register} /> } /> 
           <Route exact path='/user/login' render = {(props) => <Login {...props} login={this.login}/>} />
